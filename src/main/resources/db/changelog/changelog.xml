@@ -1,0 +1,66 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+    <property name="type.id" value="VARCHAR(40)"/>
+    <property name="type.id_long" value="VARCHAR(255)"/>
+    <property name="type.date" value="DATE"/>
+    <property name="type.time" value="TIME"/>
+    <property name="type.date_time" value="DATETIME(3)"/>
+    <property name="type.number_integer" value="DECIMAL(20,0)"/>
+    <property name="type.number_decimal" value="DECIMAL(26,6)"/>
+    <property name="type.number_float" value="DECIMAL(32,12)"/>
+    <property name="type.currency_amount" value="DECIMAL(24,4)"/>
+    <property name="type.currency_precise" value="DECIMAL(25,5)"/>
+    <property name="type.text_indicator" value="CHAR(1)"/>
+    <property name="type.text_short" value="VARCHAR(63)"/>
+    <property name="type.text_medium" value="VARCHAR(255)"/>
+    <property name="type.text_intermediate" value="VARCHAR(1023)"/>
+    <property name="type.text_long" value="VARCHAR(4095)"/>
+    <property name="type.text_very_long" value="LONGTEXT"/>
+    <property name="type.binary_very_long" value="LONGBLOB"/>
+
+    <changeSet author="Wei Zhang" id="20220610-1">
+        <createTable tableName="USER_ACCOUNT" schemaName="public">
+            <column name="USER_ID" type="${type.id}">
+                <constraints nullable="false" primaryKey="true"/></column>
+            <column name="USERNAME" type="${type.text_medium}"/>
+            <column name="USER_FULL_NAME" type="${type.text_medium}"/>
+            <column name="CURRENT_PASSWORD" type="${type.text_medium}"/>
+            <column name="RESET_PASSWORD" type="${type.text_medium}"/>
+            <column name="PASSWORD_SALT" type="${type.text_medium}"/>
+            <column name="PASSWORD_HASH_TYPE" type="${type.text_short}"/>
+            <column name="PASSWORD_BASE64" type="${type.text_indicator}"/>
+            <column name="PASSWORD_SET_DATE" type="${type.date_time}"/>
+            <column name="PASSWORD_HINT" type="${type.text_medium}"/>
+            <column name="PUBLIC_KEY" type="${type.text_long}"/>
+            <column name="HAS_LOGGED_OUT" type="${type.text_indicator}"/>
+            <column name="DISABLED" type="${type.text_indicator}"/>
+            <column name="DISABLED_DATE_TIME" type="${type.date_time}"/>
+            <column name="TERMINATE_DATE" type="${type.date_time}"/>
+            <column name="SUCCESSIVE_FAILED_LOGINS" type="${type.number_integer}"/>
+            <column name="REQUIRE_PASSWORD_CHANGE" type="${type.text_indicator}"/>
+            <column name="CURRENCY_UOM_ID" type="${type.id}"/>
+            <column name="LOCALE" type="${type.text_short}"/>
+            <column name="TIME_ZONE" type="${type.text_short}"/>
+            <column name="EXTERNAL_USER_ID" type="${type.text_medium}"/>
+            <column name="EMAIL_ADDRESS" type="${type.text_medium}"/>
+            <column name="IP_ALLOWED" type="${type.text_medium}"/>
+            <column name="PARTY_ID" type="${type.id}"/>
+            <column name="LAST_UPDATED_STAMP" type="${type.date_time}"/>
+        </createTable>
+        <createIndex indexName="USERACCT_USERNAME" tableName="USER_ACCOUNT" schemaName="public" unique="true">
+            <column name="USERNAME"/></createIndex>
+        <createIndex indexName="USERACCT_EMAILADDR" tableName="USER_ACCOUNT" schemaName="public" unique="true">
+            <column name="EMAIL_ADDRESS"/></createIndex>
+        <createIndex indexName="IDXUserAccountCurrencyUom" tableName="USER_ACCOUNT" unique="false" schemaName="public">
+            <column name="CURRENCY_UOM_ID"/></createIndex>
+        <createIndex indexName="IDXUserAccountParty" tableName="USER_ACCOUNT" unique="false" schemaName="public">
+            <column name="PARTY_ID"/></createIndex>
+    </changeSet>
+</databaseChangeLog>
