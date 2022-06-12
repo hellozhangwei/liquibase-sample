@@ -62,5 +62,11 @@
             <column name="CURRENCY_UOM_ID"/></createIndex>
         <createIndex indexName="IDXUserAccountParty" tableName="USER_ACCOUNT" unique="false" schemaName="public">
             <column name="PARTY_ID"/></createIndex>
+
+        <createTable tableName="EXAMPLE" schemaName="public">
+            <column name="EXAMPLE_ID" type="${type.id}">
+                <constraints nullable="false" primaryKey="true"/></column>
+            <column name="EXAMPLE_NAME" type="${type.text_medium}"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
