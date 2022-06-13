@@ -87,5 +87,12 @@
         <addColumn schemaName="public" tableName="example" >
             <column afterColumn="example_name" name="example_desc" type="${type.text_long}"/>
         </addColumn>
+        <sql>
+            insert into example(example_id, example_name, example_desc) values('1000003', 'Test example 3', 'Test desc 3')
+        </sql>
+    </changeSet>
+
+    <changeSet  author="Leif Zhai"  id="20020612-4">
+        <renameColumn schemaName="public" tableName="example" newColumnName="example_description" oldColumnName="example_desc"/>
     </changeSet>
 </databaseChangeLog>
