@@ -69,4 +69,23 @@
             <column name="EXAMPLE_NAME" type="${type.text_medium}"/>
         </createTable>
     </changeSet>
+
+    <changeSet author="Wei Zhang" id="20220612-1">
+        <insert tableName="EXAMPLE">
+            <column name="EXAMPLE_ID" valueNumeric="100000"/>
+            <column name="EXAMPLE_NAME" value="Test example 1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="Wei Zhang" id="20220612-2" context="postgresql">
+        <sql>
+            insert into example(example_id, example_name) values('1000001', 'Test example 2')
+        </sql>
+    </changeSet>
+
+    <changeSet author="Leif Zhai" id="20020612-3">
+        <addColumn schemaName="public" tableName="example" >
+            <column afterColumn="example_name" name="example_desc" type="${type.text_long}"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
